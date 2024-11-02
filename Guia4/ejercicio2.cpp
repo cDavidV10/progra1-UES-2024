@@ -77,20 +77,23 @@ int leer()
     return numero;
 }
 
+//* Ordenar Inserccion;
 void ordenar()
 {
     int auxiliar = 0;
-    for (int i = 0; i < size - 1; i++)
+    int pos = 0;
+    for (int i = 0; i < size; i++)
     {
-        for (int j = 0; j < size - (i + 1); j++)
+        pos = i;
+        auxiliar = numeros[i];
+
+        while (pos > 0 && auxiliar < numeros[pos - 1])
         {
-            if (numeros[j] > numeros[j + 1])
-            {
-                auxiliar = numeros[j];
-                numeros[j] = numeros[j + 1];
-                numeros[j + 1] = auxiliar;
-            }
+            numeros[pos] = numeros[pos - 1];
+            pos--;
         }
+
+        numeros[pos] = auxiliar;
     }
 }
 

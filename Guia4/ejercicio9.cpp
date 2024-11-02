@@ -9,6 +9,7 @@ using std::endl;
 
 void ordenar(char[]);
 void imprimir(char[]);
+void conversor(char[]);
 bool isAranama(char[], char[]);
 
 int main(int argc, char const *argv[])
@@ -21,35 +22,49 @@ int main(int argc, char const *argv[])
     cout << "Escriba su segunda palabra: ";
     cin.getline(palabra2, 100);
 
+    conversor(palabra1);
+    conversor(palabra2);
+
     ordenar(palabra1);
     ordenar(palabra2);
 
     if (isAranama(palabra1, palabra2))
     {
-        cout << "Sus palabras son aranamas" << endl;
+        cout << "Sus palabras son anagramas" << endl;
     }
     else
     {
-        cout << "Sus palabras no son aranamas" << endl;
+        cout << "Sus palabras no son anagramas" << endl;
     }
 
     return 0;
 }
 
+//* Ordenamiento Insercion
 void ordenar(char palabra[])
 {
     char aux[100];
+    int pos;
     for (int i = 0; i < strlen(palabra); i++)
     {
-        for (int j = 0; j < strlen(palabra) - (i + 1); j++)
+        pos = i;
+        aux[i] = palabra[i];
+
+        while (pos > 0 && aux[i] < palabra[pos - 1])
         {
-            if (palabra[j] > palabra[j + 1])
-            {
-                aux[j] = palabra[j];
-                palabra[j] = palabra[j + 1];
-                palabra[j + 1] = aux[j];
-            }
+            palabra[pos] = palabra[pos - 1];
+            pos--;
         }
+
+        palabra[pos] = aux[i];
+    }
+}
+
+void conversor(char palabra[])
+{
+    for (int i = 0; i < strlen(palabra); i++)
+    {
+        palabra[i] = tolower(palabra[i]);
     }
 }
 

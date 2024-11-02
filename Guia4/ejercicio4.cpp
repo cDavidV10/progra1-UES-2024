@@ -119,48 +119,55 @@ void imprimir(char fechas[size][11])
     }
 }
 
+//* Ordenar Insercion
 void ordenar(char fechas[size][11], int valor[])
 {
     char aux[11];
     int auxVal;
+    int pos;
 
-    for (int i = 0; i < size - 1; i++)
+    char fechasCopia[size][11];
+    int valorCopia[size];
+
+    for (int i = 0; i < size; i++)
     {
-        for (int j = 0; j < size - i - 1; j++)
-        {
-            if (valor[j] > valor[j + 1])
-            {
-                auxVal = valor[j];
-                valor[j] = valor[j + 1];
-                valor[j + 1] = auxVal;
+        strcpy(fechasCopia[i], fechas[i]);
+        valorCopia[i] = valor[i];
+    }
 
-                strcpy(aux, fechas[j]);
-                strcpy(fechas[j], fechas[j + 1]);
-                strcpy(fechas[j + 1], aux);
-            }
+    for (int i = 0; i < size; i++)
+    {
+        pos = i;
+        strcpy(aux, fechasCopia[i]);
+        auxVal = valorCopia[i];
+        while (pos > 0 && auxVal < valorCopia[pos - 1])
+        {
+            valorCopia[pos] = valorCopia[pos - 1];
+            strcpy(fechasCopia[pos], fechasCopia[pos - 1]);
+            pos--;
         }
+        valorCopia[pos] = auxVal;
+        strcpy(fechasCopia[pos], aux);
     }
 
     cout << "Fechas ordenadas de forma ascendente:" << endl;
-    imprimir(fechas);
+    imprimir(fechasCopia);
 
-    for (int i = 0; i < size - 1; i++)
+    for (int i = 0; i < size; i++)
     {
-        for (int j = 0; j < size - i - 1; j++)
+        pos = i;
+        strcpy(aux, fechas[i]);
+        auxVal = valor[i];
+        while (pos > 0 && auxVal > valor[pos - 1])
         {
-            if (valor[j] < valor[j + 1])
-            {
-                auxVal = valor[j + 1];
-                valor[j + 1] = valor[j];
-                valor[j] = auxVal;
-
-                strcpy(aux, fechas[j + 1]);
-                strcpy(fechas[j + 1], fechas[j]);
-                strcpy(fechas[j], aux);
-            }
+            valor[pos] = valor[pos - 1];
+            strcpy(fechas[pos], fechas[pos - 1]);
+            pos--;
         }
+        valor[pos] = auxVal;
+        strcpy(fechas[pos], aux);
     }
 
-    cout << "Fechas ordenadas de forma descendetes son:" << endl;
+    cout << "Fechas ordenadas de forma descendentes:" << endl;
     imprimir(fechas);
 }

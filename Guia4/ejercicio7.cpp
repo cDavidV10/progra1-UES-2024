@@ -186,52 +186,55 @@ void imprimir(char fechas[size][11], int minutos[])
     }
 }
 
+//* ordenar Insercion
 void ordenarFechas(char fechas[size][11], int valor[], int minutos[])
 {
     char aux[11];
     int auxVal, auxMinutos;
+    int pos;
 
-    for (int i = 0; i < size - 1; i++)
+    for (int i = 0; i < size; i++)
     {
-        for (int j = 0; j < size - i - 1; j++)
+        pos = i;
+        strcpy(aux, fechas[i]);
+        auxMinutos = minutos[i];
+        auxVal = valor[i];
+
+        while (pos > 0 && auxVal < valor[pos - 1])
         {
-            if (valor[j] > valor[j + 1])
-            {
-                auxVal = valor[j];
-                valor[j] = valor[j + 1];
-                valor[j + 1] = auxVal;
-
-                auxMinutos = minutos[j];
-                minutos[j] = minutos[j + 1];
-                minutos[j + 1] = auxMinutos;
-
-                strcpy(aux, fechas[j]);
-                strcpy(fechas[j], fechas[j + 1]);
-                strcpy(fechas[j + 1], aux);
-            }
+            strcpy(fechas[pos], fechas[pos - 1]);
+            minutos[pos] = minutos[pos - 1];
+            valor[pos] = valor[pos - 1];
+            pos--;
         }
+
+        strcpy(fechas[pos], aux);
+        minutos[pos] = auxMinutos;
+        valor[pos] = auxVal;
     }
 }
 
+//* Ordenar Seleccion
 void ordenarMinutos(char fechas[size][11], int minutos[])
 {
     char aux[11];
     int auxMinutos;
+    int pos;
 
-    for (int i = 0; i < size - 1; i++)
+    for (int i = 0; i < size; i++)
     {
-        for (int j = 0; j < size - i - 1; j++)
-        {
-            if (minutos[j] > minutos[j + 1])
-            {
-                auxMinutos = minutos[j];
-                minutos[j] = minutos[j + 1];
-                minutos[j + 1] = auxMinutos;
+        pos = i;
+        strcpy(aux, fechas[i]);
+        auxMinutos = minutos[i];
 
-                strcpy(aux, fechas[j]);
-                strcpy(fechas[j], fechas[j + 1]);
-                strcpy(fechas[j + 1], aux);
-            }
+        while (pos > 0 && auxMinutos < minutos[pos - 1])
+        {
+            strcpy(fechas[pos], fechas[pos - 1]);
+            minutos[pos] = minutos[pos - 1];
+            pos--;
         }
+
+        strcpy(fechas[pos], aux);
+        minutos[pos] = auxMinutos;
     }
 }

@@ -46,20 +46,23 @@ int main(int argc, char const *argv[])
     return 0;
 }
 
+//* Ordenar Insercion
 void ordenar(char cadena[size][size])
 {
     char aux[size];
+    int pos;
 
-    for (int i = 0; i < index - 1; i++)
+    for (int i = 0; i < index; i++)
     {
-        for (int j = 0; j < index - (i + 1); j++)
+        pos = i;
+        strcpy(aux, cadena[i]);
+
+        while (pos > 0 && strcmp(aux, cadena[pos - 1]) < 0)
         {
-            if (strcmp(cadena[j], cadena[j + 1]) > 0)
-            {
-                strcpy(aux, cadena[j]);
-                strcpy(cadena[j], cadena[j + 1]);
-                strcpy(cadena[j + 1], aux);
-            }
+            strcpy(cadena[pos], cadena[pos - 1]);
+            pos--;
         }
+
+        strcpy(cadena[pos], aux);
     }
 }

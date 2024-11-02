@@ -89,19 +89,19 @@ void ordenar()
     string productoAux;
     int cantidadAux;
     float precioAux;
+    int pos;
 
     //? Calcular el precio final en base a la cantidad
     //? de productos llevados
     for (int i = 0; i < index; i++)
     {
-        precios[i] = precios[i] * cantidades[i];
+        precioOrdenado[i] = precios[i] * cantidades[i];
     }
 
     for (int i = 0; i < index; i++)
     {
         productoOrdenado[i] = productos[i];
         cantidadOrdenada[i] = cantidades[i];
-        precioOrdenado[i] = precios[i];
     }
 
     //? For para agregarle el iva al precio
@@ -114,25 +114,24 @@ void ordenar()
         ivaAgregado = true;
     }
 
-    for (int i = 0; i < index - 1; i++)
+    for (int i = 0; i < index; i++)
     {
-        for (int j = 0; j < index - (i + 1); j++)
+        pos = i;
+        productoAux = productoOrdenado[i];
+        cantidadAux = cantidadOrdenada[i];
+        precioAux = precioOrdenado[i];
+
+        while (pos > 0 && precioAux < precioOrdenado[pos - 1])
         {
-            if (precioOrdenado[j] > precioOrdenado[j + 1])
-            {
-                productoAux = productoOrdenado[j];
-                productoOrdenado[j] = productoOrdenado[j + 1];
-                productoOrdenado[j + 1] = productoAux;
-
-                cantidadAux = cantidadOrdenada[j];
-                cantidadOrdenada[j] = cantidadOrdenada[j + 1];
-                cantidadOrdenada[j + 1] = cantidadAux;
-
-                precioAux = precioOrdenado[j];
-                precioOrdenado[j] = precioOrdenado[j + 1];
-                precioOrdenado[j + 1] = precioAux;
-            }
+            productoOrdenado[pos] = productoOrdenado[pos - 1];
+            cantidadOrdenada[pos] = cantidadOrdenada[pos - 1];
+            precioOrdenado[pos] = precioOrdenado[pos - 1];
+            pos--;
         }
+
+        productoOrdenado[pos] = productoAux;
+        cantidadOrdenada[pos] = cantidadAux;
+        precioOrdenado[pos] = precioAux;
     }
 
     imprimir(productoOrdenado, cantidadOrdenada, precioOrdenado);

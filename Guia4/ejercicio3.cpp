@@ -79,12 +79,14 @@ void add()
     index++;
 }
 
+//* Ordenar Insercion
 void ordenar()
 {
     string nombresOrdenados[size];
     int telefonosOrdenados[size];
     string nombreAux;
     int telAux;
+    int pos;
 
     for (int i = 0; i < index; i++)
     {
@@ -92,21 +94,20 @@ void ordenar()
         telefonosOrdenados[i] = telefonos[i];
     }
 
-    for (int i = 0; i < index - 1; i++)
+    for (int i = 0; i < index; i++)
     {
-        for (int j = 0; j < index - (i + 1); j++)
-        {
-            if (nombresOrdenados[j] > nombresOrdenados[j + 1])
-            {
-                nombreAux = nombresOrdenados[j + 1];
-                nombresOrdenados[j + 1] = nombresOrdenados[j];
-                nombresOrdenados[j] = nombreAux;
+        pos = i;
+        nombreAux = nombresOrdenados[i];
+        telAux = telefonosOrdenados[i];
 
-                telAux = telefonosOrdenados[j + 1];
-                telefonosOrdenados[j + 1] = telefonosOrdenados[j];
-                telefonosOrdenados[j] = telAux;
-            }
+        while (pos > 0 && nombreAux < nombresOrdenados[pos - 1])
+        {
+            nombresOrdenados[pos] = nombresOrdenados[pos - 1];
+            telefonosOrdenados[pos] = telefonosOrdenados[pos - 1];
+            pos--;
         }
+        nombresOrdenados[pos] = nombreAux;
+        telefonosOrdenados[pos] = telAux;
     }
 
     imprimir(nombresOrdenados, telefonosOrdenados);

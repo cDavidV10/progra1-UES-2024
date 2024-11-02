@@ -10,17 +10,17 @@ using std::cout;
 using std::endl;
 
 void imprimir(char[size][20], float[]);
-void ordenamientoBurbuja(char[size][20], float[]);
+void ordenamiento(char[size][20], float[]);
 
 int main(int argc, char const *argv[])
 {
-    char estudiantes[size][20] = {"Manuel", "Leslie", "Franco", "Ernesto", "Amrmando"};
+    char estudiantes[size][20] = {"Manuel", "Leslie", "Franco", "Ernesto", "Armando"};
     float notas[size] = {6, 7, 3, 8, 9};
 
     imprimir(estudiantes, notas);
     cout << "Estudiantes ordenados por nombre" << endl;
 
-    ordenamientoBurbuja(estudiantes, notas);
+    ordenamiento(estudiantes, notas);
     imprimir(estudiantes, notas);
 
     cout << "Gracias por usar nuestro sistema :)";
@@ -28,26 +28,27 @@ int main(int argc, char const *argv[])
     return 0;
 }
 
-void ordenamientoBurbuja(char datos[size][20], float nota[size])
+//* Ordenamiento insercion
+void ordenamiento(char datos[size][20], float nota[size])
 {
     char aux[20];
     float auxNota;
+    int pos;
 
-    for (int i = 0; i < size - 1; i++)
+    for (int i = 0; i < size; i++)
     {
-        for (int j = 0; j < size - (i + 1); j++)
+        pos = i;
+        strcpy(aux, datos[i]);
+        auxNota = nota[i];
+        while (pos > 0 && strcmp(aux, datos[pos - 1]) < 0)
         {
-            if (strcmp(datos[j], datos[j + 1]) > 0)
-            {
-                strcpy(aux, datos[j]);
-                strcpy(datos[j], datos[j + 1]);
-                strcpy(datos[j + 1], aux);
-
-                auxNota = nota[j];
-                nota[j] = nota[j + 1];
-                nota[j + 1] = auxNota;
-            }
+            strcpy(datos[pos], datos[pos - 1]);
+            nota[pos] = nota[pos - 1];
+            pos--;
         }
+
+        strcpy(datos[pos], aux);
+        nota[pos] = auxNota;
     }
 }
 

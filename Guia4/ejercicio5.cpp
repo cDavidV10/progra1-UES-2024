@@ -55,7 +55,7 @@ void menu()
     system("cls");
     cout << "*****  MENU    *****" << endl;
     cout << "1. Tempratura por dia" << endl;
-    cout << "2. Temperatura ordenada de mayor a menor" << endl;
+    cout << "2. Temperatura ordenada de menor a mayor" << endl;
     cout << "3. Salir" << endl;
     cout << "Selecione una opcion: ";
     opcion = leer();
@@ -84,12 +84,14 @@ int leer()
     return numero;
 }
 
+//* Ordenar Insercion
 void ordenar()
 {
     string diasOrdenados[size];
     int temperaturaOrdenada[size];
     string diaAux;
     int tempAux;
+    int pos;
 
     for (int i = 0; i < size; i++)
     {
@@ -97,21 +99,21 @@ void ordenar()
         temperaturaOrdenada[i] = temperaturas[i];
     }
 
-    for (int i = 0; i < size - 1; i++)
+    for (int i = 0; i < size; i++)
     {
-        for (int j = 0; j < size - (i + 1); j++)
-        {
-            if (temperaturaOrdenada[j] < temperaturaOrdenada[j + 1])
-            {
-                diaAux = diasOrdenados[j];
-                diasOrdenados[j] = diasOrdenados[j + 1];
-                diasOrdenados[j + 1] = diaAux;
+        pos = i;
+        diaAux = diasOrdenados[i];
+        tempAux = temperaturaOrdenada[i];
 
-                tempAux = temperaturaOrdenada[j];
-                temperaturaOrdenada[j] = temperaturaOrdenada[j + 1];
-                temperaturaOrdenada[j + 1] = tempAux;
-            }
+        while (pos > 0 && tempAux < temperaturaOrdenada[pos - 1])
+        {
+            diasOrdenados[pos] = diasOrdenados[pos - 1];
+            temperaturaOrdenada[pos] = temperaturaOrdenada[pos - 1];
+            pos--;
         }
+
+        diasOrdenados[pos] = diaAux;
+        temperaturaOrdenada[pos] = tempAux;
     }
 
     impresion(diasOrdenados, temperaturaOrdenada);
